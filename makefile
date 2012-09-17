@@ -1,8 +1,13 @@
 CSC = mcs
 ILRUN = mono
+GSL = gsl.dll
 
-default: lib
-lib: gsls.dll
+default: help
+
+lib: $(GSL)
+help:
+	@echo '"make lib" builds the library, $(GSL)'
+	@echo '"make test" runs tests'
 
 srcdir = src
 files = \
@@ -10,13 +15,13 @@ files = \
 	$(srcdir)/vector.cs\
 	$(srcdir)/matrix.cs\
 
-gsls.dll : $(files)
-	$(CSC) $< -target:library -out:gsls.dll
+$(GSL) : $(files)
+	$(CSC) $< -target:library -out:$@
 
 clean: clean-lib clean-test
 
 clean-lib:
-	rm -f gsls.dll
+	rm -f $(GSL)
 
 clean-test:
 	rm -f test.exe
@@ -24,5 +29,5 @@ clean-test:
 test: test.exe
 	$(ILRUN) $<
 
-test.exe: test.cs gsls.dll
-	$(CSC) $< -target:exe -out:$@ -reference:gsls.dll
+test.exe: test.cs $(GSL)
+	$(CSC) $< -target:exe -out:$@ -reference:$(GSL)

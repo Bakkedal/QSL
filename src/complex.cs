@@ -62,14 +62,12 @@ public static complex operator/(complex a, double b){
 public static complex operator/(complex a, complex b){
    if( SM.Abs(b.im)<SM.Abs(b.re) )
       {
-         double e = b.im/b.re;
-         double f = b.re+b.im*e;
+         double e = b.im/b.re, f = b.re+b.im*e;
          return new complex( (a.re+a.im*e)/f, (a.im-a.re*e)/f);
       }
    else
       {
-         double e = b.re/b.im;
-         double f = b.im+b.re*e;
+         double e = b.re/b.im, f = b.im+b.re*e;
          return new complex( (a.im+a.re*e)/f, (-a.re+a.im*e)/f);
       }
    }
@@ -81,8 +79,8 @@ public static bool operator!=(complex a, complex b)
 
 // methods
 
-public void Print(string s){
-   System.Console.WriteLine("{0} {1}",s,this);}
+public void print(string s){System.Console.WriteLine("{0} {1}",s,this);}
+public void print(){System.Console.WriteLine("{0}",this);}
 
 public override bool Equals(System.Object obj) {
       if (obj is complex)
@@ -112,6 +110,14 @@ public static double Abs(complex z){
    if(x==0 && y==0) return 0;
    if(x>y) {double t=y/x; return x*SM.Sqrt(1.0+t*t);}
    else    {double t=x/y; return y*SM.Sqrt(1.0+t*t);} }
+
+public double Abs2(){return Abs2(this);}
+public static double Abs2(double x){return x*x;}
+public static double Abs2(complex z){return z.re*z.re + z.im*z.im;}
+
+public double Arg(){return Arg(this);}
+public static double Arg(double x){return 0;}
+public static double Arg(complex z){return SM.Atan2(z.im,z.re);}
 
 public complex Exp(){return Exp(this);}
 public static double Exp(double x){ return SM.Exp(x); }
