@@ -1,5 +1,7 @@
 /*
 
+Copyright 2012 Dmitri Fedorov.
+
 This file is part of GSLs (GSL#).
 
 GSLs is free software: you can redistribute it and/or modify it under
