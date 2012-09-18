@@ -1,12 +1,12 @@
 CSC = mcs
 ILRUN = mono
-GSL = gsl.dll
+QSL = qsl.dll
 
 default: help
 
-lib: $(GSL)
+lib: $(QSL)
 help:
-	@echo '"make lib" builds the library, $(GSL)'
+	@echo '"make lib" builds the library, $(QSL)'
 	@echo '"make test" runs tests'
 
 srcdir = src
@@ -15,13 +15,13 @@ files = \
 	$(srcdir)/vector.cs\
 	$(srcdir)/matrix.cs\
 
-$(GSL) : $(files)
+$(QSL) : $(files)
 	$(CSC) $< -target:library -out:$@
 
 clean: clean-lib clean-test
 
 clean-lib:
-	rm -f $(GSL)
+	rm -f $(QSL)
 
 clean-test:
 	rm -f test.exe
@@ -29,5 +29,5 @@ clean-test:
 test: test.exe
 	$(ILRUN) $<
 
-test.exe: test.cs $(GSL)
-	$(CSC) $< -target:exe -out:$@ -reference:$(GSL)
+test.exe: test.cs $(QSL)
+	$(CSC) $< -target:exe -out:$@ -reference:$(QSL)
